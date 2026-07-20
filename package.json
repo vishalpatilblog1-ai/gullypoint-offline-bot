@@ -1,0 +1,23 @@
+{
+  "name": "gullypoint-offline-bot",
+  "version": "1.0.0",
+  "description": "Offline Cricbuzz polling bot for Gully Point",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "axios": "^1.13.2",
+    "canvas": "^3.2.1",
+    "cloudinary": "^2.9.0",
+    "dotenv": "^16.4.5",
+    "openai": "^4.67.0",
+    "sharp": "^0.34.5",
+    "twitter-api-v2": "^1.28.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
