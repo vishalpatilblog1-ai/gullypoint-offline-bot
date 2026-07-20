@@ -36,10 +36,6 @@ if (isGP) {
   });
 }
 
-console.log("Access token suffix:", process.env.X_ACCESS_TOKEN_CREX?.slice(-6));
-
-console.log("GP token suffix:", process.env.X_ACCESS_TOKEN_GP?.slice(-6));
-
 // const client = new TwitterApi({
 //   appKey: process.env.X_API_KEY_CREX,
 //   appSecret: process.env.X_API_SECRET_CREX,
@@ -47,11 +43,6 @@ console.log("GP token suffix:", process.env.X_ACCESS_TOKEN_GP?.slice(-6));
 //   accessSecret: process.env.X_ACCESS_SECRET_CREX,
 // });
 const rwClient = client.readWrite;
-const me = await rwClient.v2.me({
-  "user.fields": ["username", "name"],
-});
-
-console.log("Authenticated as:", me.data);
 
 // async function downloadImage(url) {
 //   fs.mkdirSync("./tmp", { recursive: true });

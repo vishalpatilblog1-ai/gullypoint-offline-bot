@@ -1,9 +1,11 @@
 import dotenv from "dotenv";
-import { scorePollingLoopOffline } from "./crickbuzz/offline/loops/scorePollingLoopOffline.js";
-
 dotenv.config();
 
-// import { scorePollingLoopOffline } from "./cricbuzz/offline/scorePollingLoopOffline.js";
+import { scorePollingLoopOffline } from "./crickbuzz/offline/loops/scorePollingLoopOffline.js";
+
+const MATCH_ID = process.env.FORCE_MATCH_ID
+  ? Number(process.env.FORCE_MATCH_ID)
+  : 139018;
 
 const startBot = async () => {
   try {
@@ -12,7 +14,9 @@ const startBot = async () => {
     console.log("🚀 Starting offline score polling...");
     console.log("========================================");
 
-    await scorePollingLoopOffline();
+    console.log(`🎯 Using Match ID: ${MATCH_ID}`);
+
+    await scorePollingLoopOffline(MATCH_ID);
   } catch (error) {
     console.error("❌ Failed to start offline cricket bot:", error);
     process.exit(1);
