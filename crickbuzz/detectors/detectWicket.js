@@ -1,7 +1,6 @@
 export function detectWicket(prev, curr) {
   if (!prev || !curr) return null;
 
-  // if (prev.ballNbr === curr.ballNbr) return null;
   const sameBall = prev.ballNbr === curr.ballNbr;
 
   const prevEvent = String(prev.raw?.miniscore?.event ?? "")

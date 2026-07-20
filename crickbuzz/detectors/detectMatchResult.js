@@ -1,3 +1,5 @@
+import { hasMatchEnded } from "../utils/utils.js";
+
 export function detectMatchResult(prev, curr, response) {
   if (!prev || !curr || !response) return null;
 

@@ -4,8 +4,6 @@ import { CREX_BASE_IMAGE_TEMPLATE } from "../utils/config.js";
 import { tweetNewsWithImage } from "../../twitter/tweetNewsWithImage.js";
 import { formatMilestoneInfo } from "../templates/premium-template.js";
 
-// const log = createLogger("prod");
-
 export async function handleMilestone({
   milestoneEvent,
   currentSnapshot,

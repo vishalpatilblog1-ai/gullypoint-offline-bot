@@ -1,10 +1,7 @@
 import { tweetNewsWithImage } from "../../twitter/tweetNewsWithImage.js";
 import { postTweet_console, postTweet_web } from "../../twitter/twitter.js";
 import { formatMatchResultInfo } from "../templates/premium-template.js";
-
 import { CREX_BASE_IMAGE_TEMPLATE } from "../utils/config.js";
-
-// const log = createLogger("prod");
 
 export async function handleMatchResult({ matchResultEvent, useWebTweet }) {
   if (

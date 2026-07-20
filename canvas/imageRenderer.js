@@ -4,10 +4,6 @@ import {
   renderNewsCardImage,
   saveGeneratedImage,
 } from "./renderNewsCardImage.js";
-// import {
-//   renderNewsCardImage,
-//   saveGeneratedImage,
-// } from "./renderNewsCardImage.js";
 
 const fontPathBold = path.join(process.cwd(), "fonts", "Inter_28pt-Bold.ttf");
 const fontPathRegular = path.join(

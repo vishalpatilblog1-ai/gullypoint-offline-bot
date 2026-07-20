@@ -20,11 +20,6 @@ export function extractPlayingXI(response) {
       .split(",")
       .map((player) => player.trim())
       .filter(Boolean);
-
-    // result[teamName.trim()] = playersText
-    //   .split(",")
-    //   .map((player) => player.replace(/\s*\((c|wk|w)\)/gi, "").trim())
-    //   .filter(Boolean);
   }
 
   return Object.keys(result).length ? result : null;
