@@ -1,29 +1,25 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-// import { handleOfflineMatchResult } from "../handlers/handleOfflineMatchResult.js";
-// import { handleOfflineMilestone } from "../../handlers/handleOfflineMilestone.js";
-// import { handleOfflinePresentation } from "../handlers/handleOfflinePresentation.js";
-import { handleOfflineWicket } from "../handlers/handleOfflineWicket.js";
+import { handleWicket } from "../handlers/handleWicket.js";
 
-import { displayMatchInfo } from "../templates/premium-template-offline.js";
+import { displayMatchInfo } from "../templates/premium-template.js";
 
 import {
   buildSnapshot,
   clone,
   isSameSnapshot,
-  resetOfflineState,
-} from "../utils/offline-utils.js";
+  resetState,
+} from "../utils/utils.js";
 
-// import { summarizePresentationInterview } from "../../ai/summarizePresentationInterview.js";
-import { getCommentaryOffline, getLiveScore } from "../cricbuzzApiOffline.js";
-import { detectOfflineMilestone } from "../detectors/detectOfflineMilestone.js";
-import { detectOfflineMatchResult } from "../detectors/detectOfflineMatchResult.js";
-import { processPreMatchEvents } from "../detectors/detectOfflinePresentation.js";
-import { detectOfflineWicket } from "../detectors/detectOfflineWicket.js";
-import { handleOfflineMatchResult } from "../handlers/handleOfflineMatchResult.js";
-import { handleOfflineMilestone } from "../handlers/handleOfflineMilestone.js";
-import { handleOfflinePresentation } from "../handlers/handleOfflinePresentation.js";
+import { getCommentary, getLiveScore } from "../cricbuzzApi.js";
+import { detectMilestone } from "../detectors/detectMilestone.js";
+import { detectMatchResult } from "../detectors/detectMatchResult.js";
+import { processPreMatchEvents } from "../detectors/detectPresentation.js";
+import { detectWicket } from "../detectors/detectWicket.js";
+import { handleMatchResult } from "../handlers/handleMatchResult.js";
+import { handleMilestone } from "../handlers/handleMilestone.js";
+import { handlePresentation } from "../handlers/handlePresentation.js";
 import { summarizePresentationInterview } from "../ai/summarizePresentationInterview.js";
 
 const POLL_INTERVAL = 6000;
@@ -85,10 +81,9 @@ function updatePreviousSnapshot(currentSnapshot) {
 }
 
 async function processPresentationEvents(matchId) {
-  const commentaryResponse = await getCommentaryOffline(matchId);
+  const commentaryResponse = await getCommentary(matchId);
 
-  const presentationEvents =
-    detectOfflinePresentation(commentaryResponse) ?? [];
+  const presentationEvents = detectPresentation(commentaryResponse) ?? [];
 
   const sortedEvents = [...presentationEvents].sort(
     (a, b) => Number(a.timestamp ?? 0) - Number(b.timestamp ?? 0),
@@ -109,7 +104,7 @@ async function processPresentationEvents(matchId) {
       interview: presentationEvent.quote,
     });
 
-    await handleOfflinePresentation({
+    await handlePresentation({
       presentationEvent,
       summary,
       useWebTweet: USE_WEB_TWEET,
@@ -126,26 +121,23 @@ async function processLiveMatchEvents({
   currentSnapshot,
   response,
 }) {
-  const wicketEvent = detectOfflineWicket(previousSnapshot, currentSnapshot);
+  const wicketEvent = detectWicket(previousSnapshot, currentSnapshot);
   console.log("wicketEvent::", wicketEvent);
 
   if (wicketEvent) {
-    await handleOfflineWicket({
+    await handleWicket({
       wicketEvent,
       currentSnapshot,
       response,
       useWebTweet: USE_WEB_TWEET,
     });
   } else {
-    const milestoneEvent = detectOfflineMilestone(
-      previousSnapshot,
-      currentSnapshot,
-    );
+    const milestoneEvent = detectMilestone(previousSnapshot, currentSnapshot);
 
     console.log("milestoneEvent:::", milestoneEvent);
 
     if (milestoneEvent) {
-      await handleOfflineMilestone({
+      await handleMilestone({
         milestoneEvent,
         currentSnapshot,
         useWebTweet: USE_WEB_TWEET,
@@ -153,7 +145,7 @@ async function processLiveMatchEvents({
     }
   }
 
-  const matchResultEvent = detectOfflineMatchResult(
+  const matchResultEvent = detectMatchResult(
     previousSnapshot,
     currentSnapshot,
     response,
@@ -165,7 +157,7 @@ async function processLiveMatchEvents({
     return;
   }
 
-  await handleOfflineMatchResult({
+  await handleMatchResult({
     matchResultEvent,
     useWebTweet: USE_WEB_TWEET,
   });
@@ -173,14 +165,14 @@ async function processLiveMatchEvents({
   startPresentationWindow();
 }
 
-export async function scorePollingLoopOffline(MATCH_ID, MATCH_NAME = "") {
+export async function scorePollingLoop(MATCH_ID, MATCH_NAME = "") {
   console.log(`🔄 Offline Polling: ${MATCH_NAME || MATCH_ID}`);
 
   if (
     !globalThis.OFFLINE_PREV_MATCH_ID ||
     globalThis.OFFLINE_PREV_MATCH_ID !== MATCH_ID
   ) {
-    resetOfflineState(MATCH_ID);
+    resetState(MATCH_ID);
   }
 
   while (true) {

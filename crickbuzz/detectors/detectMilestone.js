@@ -1,4 +1,4 @@
-export function detectOfflineMilestone(prev, curr) {
+export function detectMilestone(prev, curr) {
   if (!prev || !curr) return null;
 
   if (prev.inningsId !== curr.inningsId) return null;

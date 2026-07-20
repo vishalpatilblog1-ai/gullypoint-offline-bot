@@ -1,8 +1,4 @@
-// cricbuzz/buildMatchContextOffline.js
-
 import { shortTeamName } from "./utils/formatter.js";
-
-// import { shortTeamName } from "../../utils/formatter.js";
 
 function normalizeOvers(overs) {
   if (!overs) return overs;
@@ -18,11 +14,7 @@ function normalizeOvers(overs) {
   return overs;
 }
 
-export function buildMatchContextOffline({
-  score,
-  event,
-  isMatchComplete = false,
-}) {
+export function buildMatchContext({ score, event, isMatchComplete = false }) {
   const mini = score?.miniscore || {};
   const details = mini?.matchScoreDetails || {};
 

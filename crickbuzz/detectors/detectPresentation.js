@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 const USE_WEB_TWEET = process.env.USE_WEB_TWEET === "true";
-export function detectOfflinePresentation(response) {
+export function detectPresentation(response) {
   const commentary = response?.matchCommentary;
 
   if (!commentary) {
@@ -65,23 +65,22 @@ export async function processPreMatchEvents(matchId) {
   if (!globalThis.OFFLINE_COMMENTARY_RESPONSE) {
     console.log("📥 Fetching commentary for pre-match metadata...");
 
-    globalThis.OFFLINE_COMMENTARY_RESPONSE =
-      await getCommentaryOffline(matchId);
+    globalThis.OFFLINE_COMMENTARY_RESPONSE = await getCommentary(matchId);
   }
 
-  const tossEvent = detectOfflineToss(globalThis.OFFLINE_COMMENTARY_RESPONSE);
+  const tossEvent = detectToss(globalThis.OFFLINE_COMMENTARY_RESPONSE);
 
   if (tossEvent?.state !== "Toss") {
     return;
   }
 
-  await handleOfflineToss({
+  await handleToss({
     tossEvent,
     useWebTweet: USE_WEB_TWEET,
   });
 
   if (!globalThis.OFFLINE_PLAYING_XI_TWEETED) {
-    await handleOfflinePlayingXI({
+    await handlePlayingXI({
       matchId: matchId,
       useWebTweet: USE_WEB_TWEET,
     });

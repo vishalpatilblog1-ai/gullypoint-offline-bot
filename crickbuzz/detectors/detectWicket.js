@@ -1,4 +1,4 @@
-export function detectOfflineWicket(prev, curr) {
+export function detectWicket(prev, curr) {
   if (!prev || !curr) return null;
 
   // if (prev.ballNbr === curr.ballNbr) return null;

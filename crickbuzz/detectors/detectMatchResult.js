@@ -1,4 +1,4 @@
-export function detectOfflineMatchResult(prev, curr, response) {
+export function detectMatchResult(prev, curr, response) {
   if (!prev || !curr || !response) return null;
 
   const previousEnded = hasMatchEnded(prev.status);

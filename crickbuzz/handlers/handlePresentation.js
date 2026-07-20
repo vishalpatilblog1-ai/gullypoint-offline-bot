@@ -1,6 +1,6 @@
 import { postTweet_console, postTweet_web } from "../../twitter/twitter.js";
 
-export async function handleOfflinePresentation({
+export async function handlePresentation({
   presentationEvent,
   summary,
   useWebTweet,

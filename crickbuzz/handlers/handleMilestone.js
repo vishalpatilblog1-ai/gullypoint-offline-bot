@@ -2,11 +2,11 @@ import { postTweet_console, postTweet_web } from "../../twitter/twitter.js";
 import { generateCardImage } from "../../canvas/imageRenderer.js";
 import { CREX_BASE_IMAGE_TEMPLATE } from "../utils/config.js";
 import { tweetNewsWithImage } from "../../twitter/tweetNewsWithImage.js";
-import { formatMilestoneInfo } from "../templates/premium-template-offline.js";
+import { formatMilestoneInfo } from "../templates/premium-template.js";
 
 // const log = createLogger("prod");
 
-export async function handleOfflineMilestone({
+export async function handleMilestone({
   milestoneEvent,
   currentSnapshot,
   useWebTweet,

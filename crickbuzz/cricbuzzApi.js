@@ -29,7 +29,7 @@ export async function getLiveMiniScore(matchId) {
   }
 }
 
-export async function getCommentaryOffline(matchId) {
+export async function getCommentary(matchId) {
   console.log("Fetching match commentary");
 
   try {

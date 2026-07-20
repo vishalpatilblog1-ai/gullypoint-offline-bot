@@ -1,17 +1,14 @@
-// handlers/handleOfflinePlayingXI.js
-
-import { createPlayingXITweet } from "../templates/premium-template-offline.js";
-// import { postTweet_console, postTweet_web } from "../../../twitter.js";
+import { createPlayingXITweet } from "../templates/premium-template.js";
 import { extractPlayingXI } from "./playingXIParser.js";
-import { getCommentaryOffline } from "../cricbuzzApiOffline.js";
+import { getCommentary } from "../cricbuzzApi.js";
 import { postTweet_console, postTweet_web } from "../../twitter/twitter.js";
 
-export async function handleOfflinePlayingXI({ matchId, useWebTweet }) {
+export async function handlePlayingXI({ matchId, useWebTweet }) {
   if (globalThis.OFFLINE_PLAYING_XI_TWEETED) {
     return;
   }
 
-  const response = await getCommentaryOffline(matchId);
+  const response = await getCommentary(matchId);
 
   const playingXI = extractPlayingXI(response);
 

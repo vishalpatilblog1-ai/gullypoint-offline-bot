@@ -1,6 +1,6 @@
 // import { longTeamName } from "../../../utils/formatter.js";
 import { longTeamName } from "../utils/formatter.js";
-import { getWicketHeader, getWicketLine } from "../utils/offline-utils.js";
+import { getWicketHeader, getWicketLine } from "../utils/utils.js";
 
 export function formatWicketInfo({
   batterName,

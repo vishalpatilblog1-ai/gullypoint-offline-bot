@@ -1,17 +1,12 @@
 import { postTweet_console, postTweet_web } from "../../twitter/twitter.js";
-// import { CREX_BASE_IMAGE_TEMPLATE } from "../../../utils/config.js";
-// import { createLogger } from "../../../utils/logger.js";
 import { CREX_BASE_IMAGE_TEMPLATE } from "../utils/config.js";
 import { tweetNewsWithImage } from "../../twitter/tweetNewsWithImage.js";
-import { buildMatchContextOffline } from "../buildMatchContextOffline.js";
-// import { formatWicketInfo } from "../templates/premium-template-offline.js";
-import { isMatchComplete } from "../utils/offline-utils.js";
-import { formatWicketInfo } from "../templates/premium-template-offline.js";
+import { buildMatchContext } from "../buildMatchContext.js";
+import { isMatchComplete } from "../utils/utils.js";
+import { formatWicketInfo } from "../templates/premium-template.js";
 import { generateCardImage } from "../../canvas/imageRenderer.js";
 
-// const log = createLogger("prod");
-
-export async function handleOfflineWicket({
+export async function handleWicket({
   wicketEvent,
   currentSnapshot,
   response,
@@ -54,7 +49,7 @@ export async function handleOfflineWicket({
     overs: wicketEvent.overs,
   });
 
-  const card = buildOfflineWicketCard(wicketEvent);
+  const card = buildWicketCard(wicketEvent);
 
   console.log("card:", card);
 
@@ -88,7 +83,7 @@ export async function handleOfflineWicket({
   }
 
   try {
-    const context = buildMatchContextOffline({
+    const context = buildMatchContext({
       score: response,
       event: wicketEvent,
       isMatchComplete: isMatchComplete(currentSnapshot),
@@ -103,7 +98,7 @@ export async function handleOfflineWicket({
   }
 }
 
-function buildOfflineWicketCard(wicketEvent) {
+function buildWicketCard(wicketEvent) {
   return {
     category: `LIVE - ${wicketEvent.team1Short} v ${wicketEvent.team2Short}`,
     headline: "WICKET",

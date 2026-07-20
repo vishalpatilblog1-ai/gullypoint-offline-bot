@@ -1,15 +1,12 @@
 import { tweetNewsWithImage } from "../../twitter/tweetNewsWithImage.js";
 import { postTweet_console, postTweet_web } from "../../twitter/twitter.js";
-import { formatMatchResultInfo } from "../templates/premium-template-offline.js";
+import { formatMatchResultInfo } from "../templates/premium-template.js";
 
 import { CREX_BASE_IMAGE_TEMPLATE } from "../utils/config.js";
 
 // const log = createLogger("prod");
 
-export async function handleOfflineMatchResult({
-  matchResultEvent,
-  useWebTweet,
-}) {
+export async function handleMatchResult({ matchResultEvent, useWebTweet }) {
   if (
     !matchResultEvent?.status ||
     !matchResultEvent?.innings1 ||
@@ -23,7 +20,7 @@ export async function handleOfflineMatchResult({
 
   const matchResultText = formatMatchResultInfo(matchResultEvent);
 
-  const card = buildOfflineMatchResultCard(matchResultEvent);
+  const card = buildMatchResultCard(matchResultEvent);
 
   console.log("card:", card);
 
@@ -55,7 +52,7 @@ export async function handleOfflineMatchResult({
   }
 }
 
-function buildOfflineMatchResultCard(matchResultEvent) {
+function buildMatchResultCard(matchResultEvent) {
   return {
     category: `LIVE - ${matchResultEvent.innings1.team} v ${matchResultEvent.innings2.team}`,
     headline: matchResultEvent.status.toUpperCase(),

@@ -75,7 +75,7 @@ export function buildSnapshot(response) {
   };
 }
 
-export function resetOfflineState(matchId) {
+export function resetState(matchId) {
   console.log("🆕 New offline match detected — resetting state");
 
   globalThis.OFFLINE_PREV_MATCH_ID = matchId;
@@ -116,36 +116,7 @@ export function isMatchComplete(snapshot) {
   );
 }
 
-// export function detectOfflineToss(response) {
-//   const matchDetails = response?.miniscore?.matchScoreDetails;
-
-//   if (!matchDetails) return null;
-
-//   const toss = matchDetails.tossResults;
-
-//   if (!toss?.tossWinnerName || !toss?.decision) {
-//     return null;
-//   }
-
-//   const teamInfo = matchDetails.matchTeamInfo?.[0];
-
-//   return {
-//     type: "TOSS",
-
-//     matchId: matchDetails.matchId,
-
-//     team1Short: teamInfo?.battingTeamShortName,
-//     team2Short: teamInfo?.bowlingTeamShortName,
-
-//     tossWinner: toss.tossWinnerName,
-//     decision: toss.decision,
-
-//     state: matchDetails.state,
-//     status: response?.miniscore?.status ?? matchDetails.customStatus ?? "",
-//   };
-// }
-
-export function detectOfflineToss(response) {
+export function detectToss(response) {
   const matchDetails =
     response?.miniscore?.matchScoreDetails ?? response?.matchHeader;
 
