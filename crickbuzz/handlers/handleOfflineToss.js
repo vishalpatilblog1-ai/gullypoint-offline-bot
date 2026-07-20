@@ -1,6 +1,4 @@
-// cricbuzz/offline/handlers/handleOfflineToss.js
-
-import { postTweet_console, postTweet_web } from "../../../twitter/twitter.js";
+import { postTweet_console, postTweet_web } from "../../twitter/twitter.js";
 // import { createLogger } from "../../../utils/logger.js";
 import { createTossTweet } from "../templates/premium-template-offline.js";
 

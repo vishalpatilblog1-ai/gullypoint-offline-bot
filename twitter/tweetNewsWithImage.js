@@ -36,29 +36,7 @@ if (isGP) {
   });
 }
 
-// const client = new TwitterApi({
-//   appKey: process.env.X_API_KEY_CREX,
-//   appSecret: process.env.X_API_SECRET_CREX,
-//   accessToken: process.env.X_ACCESS_TOKEN_CREX,
-//   accessSecret: process.env.X_ACCESS_SECRET_CREX,
-// });
 const rwClient = client.readWrite;
-
-// async function downloadImage(url) {
-//   fs.mkdirSync("./tmp", { recursive: true });
-//   const filePath = "./tmp/news.jpg";
-
-//   const res = await axios.get(url, {
-//     responseType: "arraybuffer",
-//     headers: {
-//       "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
-//       "X-RapidAPI-Host": "cricbuzz-cricket.p.rapidapi.com",
-//     },
-//   });
-
-//   fs.writeFileSync(filePath, res.data);
-//   return filePath;
-// }
 
 export async function downloadImage(urlOrPath) {
   fs.mkdirSync("./tmp", { recursive: true });

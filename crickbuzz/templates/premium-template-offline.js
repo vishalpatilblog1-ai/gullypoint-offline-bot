@@ -1,5 +1,3 @@
-// cricbuzz/offline/templates/premium-template-offline.js
-
 // import { longTeamName } from "../../../utils/formatter.js";
 import { longTeamName } from "../utils/formatter.js";
 import { getWicketHeader, getWicketLine } from "../utils/offline-utils.js";
@@ -23,11 +21,6 @@ ${wicketLine}
 
 ${battingTeam} - ${score}/${wickets} (${overs} ov)`;
 }
-
-// export function createTossTweet({ tossWinner, decision }) {
-//   const action = decision.toLowerCase() === "bowling" ? "bowl" : "bat";
-//   return `${tossWinner} win the toss and elect to ${action} first.`;
-// }
 
 export function createTossTweet({
   tossWinner,
@@ -105,8 +98,6 @@ export function displayMatchInfo(response) {
 
   console.log(`💥 ${first} vs ${second} 💥`);
 }
-
-// cricbuzz/offline/templates/premium-template-offline.js
 
 export function createPlayingXITweet(playingXI) {
   if (!playingXI) return null;

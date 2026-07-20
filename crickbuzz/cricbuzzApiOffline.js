@@ -55,3 +55,7 @@ export async function getCommentaryOffline(matchId) {
     return null;
   }
 }
+
+export async function getLiveScore(matchId) {
+  return getLiveMiniScore(matchId);
+}

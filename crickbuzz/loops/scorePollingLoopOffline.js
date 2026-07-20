@@ -1,23 +1,9 @@
-// cricbuzz/offline/loops/scorePollingLoopOffline.js
-
 import dotenv from "dotenv";
 dotenv.config();
 
-// import { createLogger } from "../../../utils/logger.js";
-
-import {
-  detectOfflineMatchResult,
-  detectOfflineMilestone,
-  detectOfflinePresentation,
-  detectOfflineWicket,
-  processPreMatchEvents,
-} from "../detectors/inningsDetectorOffline.js";
-
-import { handleOfflineMatchResult } from "../handlers/handleOfflineMatchResult.js";
-import { handleOfflineMilestone } from "../handlers/handleOfflineMilestone.js";
-import { handleOfflinePlayingXI } from "../handlers/handleOfflinePlayingXI.js";
-import { handleOfflinePresentation } from "../handlers/handleOfflinePresentation.js";
-import { handleOfflineToss } from "../handlers/handleOfflineToss.js";
+// import { handleOfflineMatchResult } from "../handlers/handleOfflineMatchResult.js";
+// import { handleOfflineMilestone } from "../../handlers/handleOfflineMilestone.js";
+// import { handleOfflinePresentation } from "../handlers/handleOfflinePresentation.js";
 import { handleOfflineWicket } from "../handlers/handleOfflineWicket.js";
 
 import { displayMatchInfo } from "../templates/premium-template-offline.js";
@@ -25,18 +11,20 @@ import { displayMatchInfo } from "../templates/premium-template-offline.js";
 import {
   buildSnapshot,
   clone,
-  detectOfflineToss,
   isSameSnapshot,
   resetOfflineState,
 } from "../utils/offline-utils.js";
 
+// import { summarizePresentationInterview } from "../../ai/summarizePresentationInterview.js";
+import { getCommentaryOffline, getLiveScore } from "../cricbuzzApiOffline.js";
+import { detectOfflineMilestone } from "../detectors/detectOfflineMilestone.js";
+import { detectOfflineMatchResult } from "../detectors/detectOfflineMatchResult.js";
+import { processPreMatchEvents } from "../detectors/detectOfflinePresentation.js";
+import { detectOfflineWicket } from "../detectors/detectOfflineWicket.js";
+import { handleOfflineMatchResult } from "../handlers/handleOfflineMatchResult.js";
+import { handleOfflineMilestone } from "../handlers/handleOfflineMilestone.js";
+import { handleOfflinePresentation } from "../handlers/handleOfflinePresentation.js";
 import { summarizePresentationInterview } from "../ai/summarizePresentationInterview.js";
-
-import { getCommentaryOffline } from "../cricbuzzApiOffline.js";
-import { getLiveScore } from "../../cricbuzzApi.js";
-// import { getLiveScore } from "../../cricbuzzApi.js";
-
-// const log = createLogger("prod");
 
 const POLL_INTERVAL = 6000;
 const PRESENTATION_EVENT_DELAY = 8000;

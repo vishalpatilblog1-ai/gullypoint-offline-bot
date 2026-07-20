@@ -1,11 +1,7 @@
-// // cricbuzz/offline/handlers/handleOfflineMatchResult.js
-
-// import { generateCardImage } from "../../../canvas/imageRenderer.js";
-import { tweetNewsWithImage } from "../../../twitter/tweetNewsWithImage.js";
-import { postTweet_console, postTweet_web } from "../../../twitter/twitter.js";
-
-// import { tweetNewsWithImage } from "../../tweetNewsWithImage.js";
+import { tweetNewsWithImage } from "../../twitter/tweetNewsWithImage.js";
+import { postTweet_console, postTweet_web } from "../../twitter/twitter.js";
 import { formatMatchResultInfo } from "../templates/premium-template-offline.js";
+
 import { CREX_BASE_IMAGE_TEMPLATE } from "../utils/config.js";
 
 // const log = createLogger("prod");

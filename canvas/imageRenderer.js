@@ -12,6 +12,7 @@ import {
 const fontPathBold = path.join(process.cwd(), "fonts", "Inter_28pt-Bold.ttf");
 const fontPathRegular = path.join(
   process.cwd(),
+
   "fonts",
   "Inter_28pt-Regular.ttf",
 );

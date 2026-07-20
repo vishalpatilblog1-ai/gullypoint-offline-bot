@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
+import { scorePollingLoopOffline } from "./crickbuzz/loops/scorePollingLoopOffline.js";
 dotenv.config();
-
-import { scorePollingLoopOffline } from "./crickbuzz/offline/loops/scorePollingLoopOffline.js";
 
 const MATCH_ID = process.env.FORCE_MATCH_ID
   ? Number(process.env.FORCE_MATCH_ID)

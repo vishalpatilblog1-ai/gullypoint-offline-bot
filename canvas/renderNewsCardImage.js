@@ -4,19 +4,13 @@ import path from "path";
 import {
   CATEGORY_COLOR_MAP,
   DEFAULT_COLOR,
-} from "../crickbuzz/offline/utils/config.js";
-// import {
-//   CATEGORY_COLOR_MAP,
-//   DEFAULT_COLOR,
-// } from "../crickbuzz/offline/utils/config";
-// import { CATEGORY_COLOR_MAP, DEFAULT_COLOR } from "../utils/config.js";
-// import { CATEGORY_COLOR_MAP, DEFAULT_COLOR } from "../utils/config.js";
+} from "../crickbuzz/utils/config.js";
 
-registerFont(path.resolve("./fonts/Inter_28pt-Bold.ttf"), {
+registerFont(path.resolve("./assets/fonts/Inter_28pt-Bold.ttf"), {
   family: "InterBold",
 });
 
-registerFont(path.resolve("./fonts/Inter_28pt-Regular.ttf"), {
+registerFont(path.resolve("./assets/fonts/Inter_28pt-Regular.ttf"), {
   family: "InterRegular",
 });
 

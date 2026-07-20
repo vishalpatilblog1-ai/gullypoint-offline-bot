@@ -1,5 +1,3 @@
-// cricbuzz/offline/utils/playingXIParser.js
-
 export function extractPlayingXI(response) {
   const commentary = response?.matchCommentary;
 

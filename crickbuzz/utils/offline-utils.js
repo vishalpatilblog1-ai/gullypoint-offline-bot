@@ -1,5 +1,3 @@
-// cricbuzz/offline/utils/offline-utils.js
-
 export function clone(value) {
   return value ? structuredClone(value) : null;
 }
