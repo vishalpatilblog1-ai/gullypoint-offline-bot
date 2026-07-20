@@ -1,15 +1,17 @@
 // cricbuzz/offline/handlers/handleOfflineWicket.js
 
+// import { generateCardImage } from "../../../canvas/imageRenderer.js";
 import { generateCardImage } from "../../../canvas/imageRenderer.js";
-import { postTweet_console, postTweet_web } from "../../../twitter.js";
-import { CREX_BASE_IMAGE_TEMPLATE } from "../../../utils/config.js";
-import { createLogger } from "../../../utils/logger.js";
-import { tweetNewsWithImage } from "../../tweetNewsWithImage.js";
+import { postTweet_console, postTweet_web } from "../../../twitter/twitter.js";
+// import { CREX_BASE_IMAGE_TEMPLATE } from "../../../utils/config.js";
+// import { createLogger } from "../../../utils/logger.js";
+import { CREX_BASE_IMAGE_TEMPLATE } from "../utils/config.js";
+import { tweetNewsWithImage } from "../../../twitter/tweetNewsWithImage.js";
 import { buildMatchContextOffline } from "../buildMatchContextOffline.js";
 import { formatWicketInfo } from "../templates/premium-template-offline.js";
 import { isMatchComplete } from "../utils/offline-utils.js";
 
-const log = createLogger("prod");
+// const log = createLogger("prod");
 
 export async function handleOfflineWicket({
   wicketEvent,

@@ -1,6 +1,7 @@
 // cricbuzz/offline/templates/premium-template-offline.js
 
-import { longTeamName } from "../../../utils/formatter.js";
+// import { longTeamName } from "../../../utils/formatter.js";
+import { longTeamName } from "../utils/formatter.js";
 import { getWicketHeader, getWicketLine } from "../utils/offline-utils.js";
 
 export function formatWicketInfo({

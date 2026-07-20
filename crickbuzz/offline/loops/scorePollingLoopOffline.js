@@ -3,7 +3,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import { createLogger } from "../../../utils/logger.js";
+// import { createLogger } from "../../../utils/logger.js";
 
 import {
   detectOfflineMatchResult,
@@ -34,8 +34,9 @@ import { summarizePresentationInterview } from "../ai/summarizePresentationInter
 
 import { getCommentaryOffline } from "../cricbuzzApiOffline.js";
 import { getLiveScore } from "../../cricbuzzApi.js";
+// import { getLiveScore } from "../../cricbuzzApi.js";
 
-const log = createLogger("prod");
+// const log = createLogger("prod");
 
 const POLL_INTERVAL = 6000;
 const PRESENTATION_EVENT_DELAY = 8000;

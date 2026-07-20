@@ -1,10 +1,10 @@
 // twitter.js
 import { TwitterApi } from "twitter-api-v2";
 import dotenv from "dotenv";
-import { createLogger } from "./utils/logger.js";
+// import { createLogger } from "./utils/logger.js";
 
 dotenv.config();
-const log = createLogger("prod");
+// const log = createLogger("prod");
 
 // const twitterClient = new TwitterApi({
 //   appKey: process.env.X_API_KEY,
