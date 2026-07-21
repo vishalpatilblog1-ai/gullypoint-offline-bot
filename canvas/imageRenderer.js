@@ -5,12 +5,26 @@ import {
   saveGeneratedImage,
 } from "./renderNewsCardImage.js";
 
-const fontPathBold = path.join(process.cwd(), "fonts", "Inter_28pt-Bold.ttf");
+// const fontPathBold = path.join(process.cwd(), "fonts", "Inter_28pt-Bold.ttf");
+// const fontPathRegular = path.join(
+//   process.cwd(),
+
+//   "fonts",
+//   "Inter_28pt-Regular.ttf",
+// );
+
+const fontPathBold = path.join(
+  process.cwd(),
+  "assets",
+  "fonts",
+  "Inter_28pt-Bold.ttf"
+);
+
 const fontPathRegular = path.join(
   process.cwd(),
-
+  "assets",
   "fonts",
-  "Inter_28pt-Regular.ttf",
+  "Inter_28pt-Regular.ttf"
 );
 
 function areFontsAvailable() {

@@ -6,11 +6,21 @@ import {
   DEFAULT_COLOR,
 } from "../crickbuzz/utils/config.js";
 
-registerFont(path.resolve("./assets/fonts/Inter_28pt-Bold.ttf"), {
+// registerFont(path.resolve("./assets/fonts/Inter_28pt-Bold.ttf"), {
+//   family: "InterBold",
+// });
+
+// registerFont(path.resolve("./assets/fonts/Inter_28pt-Regular.ttf"), {
+//   family: "InterRegular",
+// });
+
+const fontDir = path.join(process.cwd(), "assets", "fonts");
+
+registerFont(path.join(fontDir, "Inter_28pt-Bold.ttf"), {
   family: "InterBold",
 });
 
-registerFont(path.resolve("./assets/fonts/Inter_28pt-Regular.ttf"), {
+registerFont(path.join(fontDir, "Inter_28pt-Regular.ttf"), {
   family: "InterRegular",
 });
 
