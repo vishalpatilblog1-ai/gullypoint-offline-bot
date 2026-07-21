@@ -30,11 +30,11 @@ export async function getLiveMiniScore(matchId) {
 }
 
 export async function getCommentary(matchId) {
-  console.log("Fetching match commentary");
+  console.log("Fetching match commentary",matchId);
 
   try {
     const res = await fetch(
-      `${DIRECT_CRICBUZZ_BASE}/api/mcenter/comm/${matchId}`,
+      `${DIRECT_CRICBUZZ_BASE}/api/mcenter/hcomm/${matchId}`,
       {
         method: "GET",
         headers: {
@@ -48,8 +48,11 @@ export async function getCommentary(matchId) {
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}`);
     }
+const data = await res.json();
 
-    return await res.json();
+console.log(JSON.stringify(data, null, 2));
+
+    return data
   } catch (err) {
     console.error("❌ getMatchCommentary:", err.message);
     return null;
