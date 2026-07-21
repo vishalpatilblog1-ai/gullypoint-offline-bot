@@ -21,7 +21,7 @@ import { handleMatchResult } from "../handlers/handleMatchResult.js";
 import { handleMilestone } from "../handlers/handleMilestone.js";
 import { handlePresentation } from "../handlers/handlePresentation.js";
 import { summarizePresentationInterview } from "../ai/summarizePresentationInterview.js";
-import { getCommentary ,getLiveScore} from "../cricbuzzApi.js";
+import { getCommentary ,getCommentaryAuto,getLiveScore} from "../cricbuzzApi.js";
 
 const POLL_INTERVAL = 6000;
 const PRESENTATION_EVENT_DELAY = 8000;
@@ -82,7 +82,9 @@ function updatePreviousSnapshot(currentSnapshot) {
 }
 
 async function processPresentationEvents(matchId) {
-  const commentaryResponse = await getCommentary(matchId);
+  // const commentaryResponse = await getCommentary(matchId);
+const commentaryResponse = await getCommentaryAuto(matchId);
+  
 
   const presentationEvents = detectPresentation(commentaryResponse) ?? [];
 

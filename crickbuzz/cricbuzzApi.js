@@ -29,7 +29,7 @@ export async function getLiveMiniScore(matchId) {
   }
 }
 
-export async function getCommentary(matchId) {
+export async function getCommentaryOld(matchId) {
   console.log("Fetching match commentary",matchId);
 
   try {
@@ -57,6 +57,51 @@ console.log(JSON.stringify(data, null, 2));
     console.error("❌ getMatchCommentary:", err.message);
     return null;
   }
+}
+
+export async function getCommentary(matchId, endpoint = "comm") {
+  console.log(`Fetching ${endpoint} for match ${matchId}`);
+
+  const res = await fetch(
+    `${DIRECT_CRICBUZZ_BASE}/api/mcenter/${endpoint}/${matchId}`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "User-Agent": "Mozilla/5.0",
+        Referer: `https://www.cricbuzz.com/live-cricket-scores/${matchId}`,
+      },
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status}`);
+  }
+
+  return await res.json();
+}
+
+export async function getCommentaryAuto(matchId) {
+  const endpoints = ["comm", "hcomm"];
+
+  for (const endpoint of endpoints) {
+    try {
+      const data = await getCommentary(matchId, endpoint);
+
+      // Valid response?
+      if (
+        data?.matchHeader ||
+        data?.miniscore ||
+        Object.keys(data?.matchCommentary || {}).length > 0
+      ) {
+        return data;
+      }
+    } catch (err) {
+      console.log(`${endpoint} failed: ${err.message}`);
+    }
+  }
+
+  return null;
 }
 
 export async function getLiveScore(matchId) {

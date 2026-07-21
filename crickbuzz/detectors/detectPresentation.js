@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { getCommentary } from "../cricbuzzApi.js";
+import { getCommentary, getCommentaryAuto } from "../cricbuzzApi.js";
 import { detectToss } from "../utils/utils.js";
 import { handleToss } from "../handlers/handleToss.js";
 import { handlePlayingXI } from "../handlers/handlePlayingXI.js";
@@ -69,7 +69,9 @@ export async function processPreMatchEvents(matchId) {
   if (!globalThis.OFFLINE_COMMENTARY_RESPONSE) {
     console.log("📥 Fetching commentary for pre-match metadata...");
 
-    globalThis.OFFLINE_COMMENTARY_RESPONSE = await getCommentary(matchId);
+    // globalThis.OFFLINE_COMMENTARY_RESPONSE = await getCommentary(matchId);
+        globalThis.OFFLINE_COMMENTARY_RESPONSE = await getCommentaryAuto(matchId);
+    
   }
 
   const tossEvent = detectToss(globalThis.OFFLINE_COMMENTARY_RESPONSE);

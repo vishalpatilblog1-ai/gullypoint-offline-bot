@@ -1,6 +1,6 @@
 import { createPlayingXITweet } from "../templates/premium-template.js";
 import { extractPlayingXI } from "./playingXIParser.js";
-import { getCommentary } from "../cricbuzzApi.js";
+import { getCommentary, getCommentaryAuto } from "../cricbuzzApi.js";
 import { postTweet_console, postTweet_web } from "../../twitter/twitter.js";
 
 export async function handlePlayingXI({ matchId, useWebTweet }) {
@@ -8,7 +8,10 @@ export async function handlePlayingXI({ matchId, useWebTweet }) {
     return;
   }
 
-  const response = await getCommentary(matchId);
+  // const response = await getCommentary(matchId);
+    const response = await getCommentaryAuto(matchId);
+
+  
 
   const playingXI = extractPlayingXI(response);
 
