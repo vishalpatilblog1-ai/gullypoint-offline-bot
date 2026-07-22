@@ -17,18 +17,19 @@ export function formatWicketInfo({
 
   const wicketLine = getWicketLine(batterName, batterRuns, batterBalls);
 
-  //   return `${header}
+    return `${header}
 
-  // ${wicketLine}
+   ${wicketLine}
 
-  // ${battingTeam} - ${score}/${wickets} (${overs} ov)
-  // ${isSecondInnings && status ? `\n\n${status}` : ``}`;
-  return `${header}
+   ${battingTeam} - ${score}/${wickets} (${overs})
+   ${isSecondInnings && status ? `\n\n${status}` : ``}`;
+ 
+  // return `${header}
 
-${wicketLine}
+// ${wicketLine}
 
-${battingTeam} - ${score}/${wickets}
-${isSecondInnings && status ? `\n\n${status}` : ``}`;
+// ${battingTeam} - ${score}/${wickets}
+// ${isSecondInnings && status ? `\n\n${status}` : ``}`;
 }
 
 export function createTossTweet({
