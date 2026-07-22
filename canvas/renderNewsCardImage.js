@@ -49,7 +49,6 @@ export async function renderNewsCardImage(baseImageUrl, card) {
 
     const pillSpacing = getPillSpacing(normalizedCategory);
 
-    // 🔥 correct width with spacing
     const textWidth = measureTextWithSpacing(
       ctx,
       normalizedCategory,
@@ -64,7 +63,6 @@ export async function renderNewsCardImage(baseImageUrl, card) {
 
     ctx.fillStyle = "#FFFFFF";
 
-    // 🔥 perfectly centered
     drawTextWithSpacing(
       ctx,
       normalizedCategory,

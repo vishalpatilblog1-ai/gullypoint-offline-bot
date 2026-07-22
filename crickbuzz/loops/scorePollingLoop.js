@@ -1,3 +1,4 @@
+// crickbuzz/loops/scorePollingLoop.js
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -15,13 +16,20 @@ import {
 // import { getCommentary, getLiveScore } from "../cricbuzzApi.js";
 import { detectMilestone } from "../detectors/detectMilestone.js";
 import { detectMatchResult } from "../detectors/detectMatchResult.js";
-import { processPreMatchEvents } from "../detectors/detectPresentation.js";
+import {
+  detectPresentation,
+  processPreMatchEvents,
+} from "../detectors/detectPresentation.js";
 import { detectWicket } from "../detectors/detectWicket.js";
 import { handleMatchResult } from "../handlers/handleMatchResult.js";
 import { handleMilestone } from "../handlers/handleMilestone.js";
 import { handlePresentation } from "../handlers/handlePresentation.js";
 import { summarizePresentationInterview } from "../ai/summarizePresentationInterview.js";
-import { getCommentary ,getCommentaryAuto,getLiveScore} from "../cricbuzzApi.js";
+import {
+  getCommentary,
+  getCommentaryAuto,
+  getLiveScore,
+} from "../cricbuzzApi.js";
 
 const POLL_INTERVAL = 6000;
 const PRESENTATION_EVENT_DELAY = 8000;
@@ -83,8 +91,7 @@ function updatePreviousSnapshot(currentSnapshot) {
 
 async function processPresentationEvents(matchId) {
   // const commentaryResponse = await getCommentary(matchId);
-const commentaryResponse = await getCommentaryAuto(matchId);
-  
+  const commentaryResponse = await getCommentaryAuto(matchId);
 
   const presentationEvents = detectPresentation(commentaryResponse) ?? [];
 
@@ -182,6 +189,7 @@ export async function scorePollingLoop(MATCH_ID, MATCH_NAME = "") {
     try {
       const response = await getLiveScore(MATCH_ID);
       const currentSnapshot = buildSnapshot(response);
+      // console.log("currentSnapshot:::", currentSnapshot);
 
       // Handle pre-match events (Toss, Playing XI)
       if (!currentSnapshot) {

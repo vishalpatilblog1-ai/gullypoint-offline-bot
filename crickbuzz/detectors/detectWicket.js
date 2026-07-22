@@ -73,6 +73,8 @@ export function detectWicket(prev, curr) {
     team1Short,
     team2Short,
     raw: curr.raw,
+    status: curr.status,
+    isSecondInnings: curr.isSecondInnings,
   };
 }
 

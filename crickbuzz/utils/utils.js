@@ -16,6 +16,7 @@ export function getCurrentInningsScore(mini) {
 
 export function buildSnapshot(response) {
   const mini = response?.miniscore;
+  
 
   if (!mini?.batTeam) return null;
 
@@ -28,6 +29,7 @@ export function buildSnapshot(response) {
   return {
     matchId: mini?.matchScoreDetails?.matchId ?? null,
     inningsId: mini?.inningsId ?? null,
+    isSecondInnings: mini?.inningsId === 2,
 
     score: Number(mini?.batTeam?.teamScore ?? 0),
     wickets: Number(mini?.batTeam?.teamWkts ?? 0),
@@ -70,7 +72,7 @@ export function buildSnapshot(response) {
     responseLastUpdated: mini?.responseLastUpdated ?? null,
 
     commentary: commentary?.commText ?? "",
-
+ 
     raw: response,
   };
 }

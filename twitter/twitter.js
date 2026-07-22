@@ -34,27 +34,27 @@ console.log(
 console.log("isGP::", isGP);
 console.log("isCREX::", isCREX);
 
-export async function postTweet_console_bbc(payload) {
-  const text = typeof payload === "string" ? payload : payload?.text;
+// export async function postTweet_console_bbc(payload) {
+//   const text = typeof payload === "string" ? payload : payload?.text;
 
-  if (typeof text !== "string") {
-    console.log("❌ Invalid tweet (not a string)");
-    console.log("INVALID TWEET:", payload);
-    return null;
-  }
+//   if (typeof text !== "string") {
+//     console.log("❌ Invalid tweet (not a string)");
+//     console.log("INVALID TWEET:", payload);
+//     return null;
+//   }
 
-  if (!text.trim()) {
-    console.log("⚠ Empty tweet skipped (console mode)");
-    return null;
-  }
+//   if (!text.trim()) {
+//     console.log("⚠ Empty tweet skipped (console mode)");
+//     return null;
+//   }
 
-  console.log(`\n\n${text}\n\n`);
+//   console.log(`\n\n${text}\n\n`);
 
-  // 👇 THIS IS THE IMPORTANT PART
-  return {
-    id: `console_${Date.now()}`,
-  };
-}
+//   // 👇 THIS IS THE IMPORTANT PART
+//   return {
+//     id: `console_${Date.now()}`,
+//   };
+// }
 
 export async function postTweet_console(text) {
   if (typeof text !== "string") {
@@ -87,6 +87,7 @@ ${text}
 }
 
 export async function postTweet_web(text, replyToId = null) {
+  console.log("text>>>", text);
   try {
     if (typeof text !== "string") {
       log("❌ Invalid tweet (not a string)");

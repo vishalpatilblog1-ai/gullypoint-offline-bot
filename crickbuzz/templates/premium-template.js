@@ -10,16 +10,27 @@ export function formatWicketInfo({
   score,
   wickets,
   overs,
+  status,
+  isSecondInnings,
 }) {
   const header = getWicketHeader(batterRuns, wickets);
 
   const wicketLine = getWicketLine(batterName, batterRuns, batterBalls);
 
+  //   return `
+  // ${header}
+
+  // ${wicketLine}
+  // ${isSecondInnings && status ? `\n\n${status}` : `\n\n${battingTeam} - ${score}/${wickets}`}
+  // `.trim();
+  // }
+
   return `${header}
 
 ${wicketLine}
 
-${battingTeam} - ${score}/${wickets} (${overs} ov)`;
+${battingTeam} - ${score}/${wickets} (${overs} ov)
+${isSecondInnings && status ? `\n\n${status}` : ``}`;
 }
 
 export function createTossTweet({

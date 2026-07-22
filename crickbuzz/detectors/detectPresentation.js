@@ -70,8 +70,7 @@ export async function processPreMatchEvents(matchId) {
     console.log("📥 Fetching commentary for pre-match metadata...");
 
     // globalThis.OFFLINE_COMMENTARY_RESPONSE = await getCommentary(matchId);
-        globalThis.OFFLINE_COMMENTARY_RESPONSE = await getCommentaryAuto(matchId);
-    
+    globalThis.OFFLINE_COMMENTARY_RESPONSE = await getCommentaryAuto(matchId);
   }
 
   const tossEvent = detectToss(globalThis.OFFLINE_COMMENTARY_RESPONSE);

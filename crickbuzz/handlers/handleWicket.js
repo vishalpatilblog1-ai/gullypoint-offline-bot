@@ -47,6 +47,8 @@ export async function handleWicket({
     score: wicketEvent.score,
     wickets: wicketEvent.wickets,
     overs: wicketEvent.overs,
+    status: wicketEvent.status,
+    isSecondInnings: wicketEvent.isSecondInnings,
   });
 
   const card = buildWicketCard(wicketEvent);

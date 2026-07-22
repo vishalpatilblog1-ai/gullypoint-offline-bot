@@ -11,7 +11,7 @@ export function detectMatchResult(prev, curr, response) {
   }
   const matchDetails = response?.miniscore?.matchScoreDetails ?? {};
 
-  console.log("matchDetails:::", matchDetails);
+
   const matchHeader = response?.matchHeader ?? {};
 
   const innings =
