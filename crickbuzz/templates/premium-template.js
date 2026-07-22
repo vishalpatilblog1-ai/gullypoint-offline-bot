@@ -17,19 +17,17 @@ export function formatWicketInfo({
 
   const wicketLine = getWicketLine(batterName, batterRuns, batterBalls);
 
-  //   return `
-  // ${header}
+  //   return `${header}
 
   // ${wicketLine}
-  // ${isSecondInnings && status ? `\n\n${status}` : `\n\n${battingTeam} - ${score}/${wickets}`}
-  // `.trim();
-  // }
 
+  // ${battingTeam} - ${score}/${wickets} (${overs} ov)
+  // ${isSecondInnings && status ? `\n\n${status}` : ``}`;
   return `${header}
 
 ${wicketLine}
 
-${battingTeam} - ${score}/${wickets} (${overs} ov)
+${battingTeam} - ${score}/${wickets}
 ${isSecondInnings && status ? `\n\n${status}` : ``}`;
 }
 
@@ -69,11 +67,18 @@ export function formatMilestoneInfo({
     header = "CENTURY";
   }
 
+  //   return `${header}
+
+  // ${batterName} brings up ${batterRuns} from ${batterBalls} balls.
+
+  // ${battingTeam} ${score}/${wickets} (${overs} ov)`;
+  // }
+
   return `${header}
 
 ${batterName} brings up ${batterRuns} from ${batterBalls} balls.
 
-${battingTeam} ${score}/${wickets} (${overs} ov)`;
+${battingTeam} ${score}/${wickets}`;
 }
 
 export function formatMatchResultInfo({ status, innings1, innings2 }) {
