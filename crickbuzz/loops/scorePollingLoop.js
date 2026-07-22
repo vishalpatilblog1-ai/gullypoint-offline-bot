@@ -189,9 +189,7 @@ export async function scorePollingLoop(MATCH_ID, MATCH_NAME = "") {
     try {
       const response = await getLiveScore(MATCH_ID);
       const currentSnapshot = buildSnapshot(response);
-      // console.log("currentSnapshot:::", currentSnapshot);
 
-      // Handle pre-match events (Toss, Playing XI)
       if (!currentSnapshot) {
         await processPreMatchEvents(MATCH_ID);
 
