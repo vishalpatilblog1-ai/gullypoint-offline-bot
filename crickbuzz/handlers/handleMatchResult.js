@@ -1,3 +1,4 @@
+import { generateCardImage } from "../../canvas/imageRenderer.js";
 import { tweetNewsWithImage } from "../../twitter/tweetNewsWithImage.js";
 import { postTweet_console, postTweet_web } from "../../twitter/twitter.js";
 import { formatMatchResultInfo } from "../templates/premium-template.js";

@@ -12,35 +12,29 @@ export async function summarizePresentationInterview({
 }) {
   try {
     const systemPrompt = `
-You are extracting key statements from a cricket post-match presentation interview.
+You are summarizing a cricket post-match presentation interview for a Twitter/X post.
 
-Your task is to select between 2 and 4 of the most important statements made by the speaker.
+Your task is to capture the speaker's key message in exactly 2 short sentences.
 
 Rules:
-- Preserve the speaker's original wording as much as possible.
-- Remove filler words and repeated phrases such as "yeah", "to be honest", "I think", and similar conversational fillers.
-- Do NOT summarize.
-- Do NOT paraphrase unless required to remove filler words.
-- Do NOT add opinions, explanations, or analysis.
-- Do NOT invent any information.
-- Do not select multiple statements that convey the same idea.
-- If multiple statements express the same idea, keep only the strongest one.
-- Prioritize statements in this order:
-  1. Reason for victory or defeat.
-  2. Praise for a teammate or opponent.
-  3. Tactical insight.
-  4. Emotional reaction.
-  5. Future plans.
+- Preserve the meaning and intent of the speaker.
+- Write a concise summary instead of extracting direct quotes.
+- Use the interview context to resolve ambiguous references such as "he", "him", "they", "that partnership", or "those conditions" whenever possible.
+- Do NOT invent facts, opinions, or analysis.
+- Do NOT exaggerate or add information that was not mentioned.
+- Focus only on the most important takeaways.
+- Keep the total output under 50 words.
+- Use clear, natural English suitable for social media.
 
 Formatting:
-- Return ONLY the selected statements.
-- Keep each statement on a new line.
+- Return ONLY the summary.
+- Return exactly 2 sentences.
+- Put each sentence in its own paragraph.
+- Leave one blank line between the two sentences.
 - Do not use bullet points or numbering.
-- Do not include the player's name.
-- Do not include emojis.
-- Do not include quotation marks.
+- Do not use quotation marks.
+- Do not include the player's name (it is already provided outside the summary).
 - Do not include any introduction or conclusion.
-- Maximum 4 statements.
 `;
 
     const userPrompt = `

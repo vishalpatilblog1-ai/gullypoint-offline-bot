@@ -17,19 +17,21 @@ export function formatWicketInfo({
 
   const wicketLine = getWicketLine(batterName, batterRuns, batterBalls);
 
-    return `${header}
+  return `${header}
 
-   ${wicketLine}
+${wicketLine}
 
-   ${battingTeam} - ${score}/${wickets} (${overs})
-   ${isSecondInnings && status ? `\n\n${status}` : ``}`;
- 
-  // return `${header}
+${
+  isSecondInnings && status
+    ? status
+    : `${battingTeam} - ${score}/${wickets} (${overs})`
+}`;
+  //   return `${header}
 
-// ${wicketLine}
+  // ${wicketLine}
 
-// ${battingTeam} - ${score}/${wickets}
-// ${isSecondInnings && status ? `\n\n${status}` : ``}`;
+  // ${battingTeam} - ${score}/${wickets}
+  // ${isSecondInnings && status ? `\n\n${status}` : ``}`;
 }
 
 export function createTossTweet({
@@ -45,7 +47,6 @@ export function createTossTweet({
     "",
     `${tossWinner} win the toss and elect to ${action} first.`,
     "",
-    "Live updates 👉",
   ].join("\n");
 }
 
