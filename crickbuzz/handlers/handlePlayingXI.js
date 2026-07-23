@@ -8,10 +8,7 @@ export async function handlePlayingXI({ matchId, useWebTweet }) {
     return;
   }
 
-  // const response = await getCommentary(matchId);
-    const response = await getCommentaryAuto(matchId);
-
-  
+  const response = await getCommentaryAuto(matchId);
 
   const playingXI = extractPlayingXI(response);
 

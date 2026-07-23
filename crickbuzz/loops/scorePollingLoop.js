@@ -190,16 +190,35 @@ export async function scorePollingLoop(MATCH_ID, MATCH_NAME = "") {
       const response = await getLiveScore(MATCH_ID);
       const currentSnapshot = buildSnapshot(response);
 
-      if (!currentSnapshot) {
+      if (
+        !globalThis.OFFLINE_TOSS_TWEETED ||
+        !globalThis.OFFLINE_PLAYING_XI_TWEETED
+      ) {
         await processPreMatchEvents(MATCH_ID);
+      }
 
-        console.log("⏳ Waiting for innings data...");
+      // if (!currentSnapshot) {
+      //   await processPreMatchEvents(MATCH_ID);
+
+      //   console.log("⏳ Waiting for innings data...");
+      //   await wait(POLL_INTERVAL);
+      //   continue;
+      // }
+
+      // Pre-match data is no longer needed once innings starts
+      // globalThis.OFFLINE_COMMENTARY_RESPONSE = null;
+
+      if (
+        globalThis.OFFLINE_TOSS_TWEETED &&
+        globalThis.OFFLINE_PLAYING_XI_TWEETED
+      ) {
+        globalThis.OFFLINE_COMMENTARY_RESPONSE = null;
+      }
+
+      if (!currentSnapshot) {
         await wait(POLL_INTERVAL);
         continue;
       }
-
-      // Pre-match data is no longer needed once innings starts
-      globalThis.OFFLINE_COMMENTARY_RESPONSE = null;
 
       if (!globalThis.OFFLINE_PREV_SNAPSHOT) {
         displayMatchInfo(response);
@@ -208,6 +227,14 @@ export async function scorePollingLoop(MATCH_ID, MATCH_NAME = "") {
         await wait(POLL_INTERVAL);
         continue;
       }
+
+      // if (!globalThis.OFFLINE_PREV_SNAPSHOT) {
+      //   displayMatchInfo(response);
+      //   updatePreviousSnapshot(currentSnapshot);
+
+      //   await wait(POLL_INTERVAL);
+      //   continue;
+      // }
 
       const previousSnapshot = globalThis.OFFLINE_PREV_SNAPSHOT;
 

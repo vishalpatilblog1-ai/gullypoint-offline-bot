@@ -88,27 +88,29 @@ ${text}
 
 export async function postTweet_web(text, replyToId = null) {
   console.log("text>>>", text);
+
+  // Validate input
+  if (typeof text !== "string") {
+    console.log("❌ Invalid tweet (not a string)");
+    console.log("INVALID TWEET:", text);
+    return null;
+  }
+
+  const cleanText = text.trim();
+
+  if (!cleanText) {
+    console.log("⚠ Empty tweet skipped");
+    return null;
+  }
+
+  // Reject tweets containing null/undefined placeholders
+  if (/\b(undefined|null)\b/i.test(cleanText)) {
+    console.log("❌ Invalid tweet (contains undefined/null)");
+    console.log("INVALID TWEET:", cleanText);
+    return null;
+  }
+
   try {
-    if (typeof text !== "string") {
-      log("❌ Invalid tweet (not a string)");
-      console.log("INVALID TWEET:", text);
-      return null;
-    }
-
-    const cleanText = text.trim();
-
-    if (!cleanText) {
-      log("⚠ Empty tweet skipped");
-      return null;
-    }
-
-    // Reject tweets containing undefined or null placeholders
-    if (/\b(undefined|null)\b/i.test(cleanText)) {
-      log("❌ Invalid tweet (contains undefined/null)");
-      console.log("INVALID TWEET:", cleanText);
-      return null;
-    }
-
     const payload = {
       text: cleanText,
     };
@@ -119,20 +121,80 @@ export async function postTweet_web(text, replyToId = null) {
       };
     }
 
-    const res = await twitterClient.v2.tweet(payload);
+    const response = await twitterClient.v2.tweet(payload);
 
     console.log("📤 Tweet POSTED via API:");
-    console.log(JSON.stringify(res.data, null, 2));
+    console.log(JSON.stringify(response.data, null, 2));
 
-    return res.data;
+    return {
+      status: "api_ok",
+      id: response.data.id,
+      text: response.data.text,
+      raw: response.data,
+    };
   } catch (err) {
     console.error("❌ Error posting tweet (API):");
-    console.error("❌ Twitter API Error:");
-    console.error("Message:", err?.message);
-    console.error("Code:", err?.code);
-    console.error("Data:", err?.data);
-    console.error("Response:", err?.response?.data);
+
+    if (err.data) {
+      console.error("Twitter API Error:");
+      console.error("Message:", err.message);
+      console.error("Code:", err.code);
+      console.error("Data:", err.data);
+      console.error("Response:", err.response);
+    }
+
     console.error(err);
     return null;
   }
 }
+
+// export async function postTweet_web(text, replyToId = null) {
+//   console.log("text>>>", text);
+//   try {
+//     if (typeof text !== "string") {
+//       log("❌ Invalid tweet (not a string)");
+//       console.log("INVALID TWEET:", text);
+//       return null;
+//     }
+
+//     const cleanText = text.trim();
+
+//     if (!cleanText) {
+//       log("⚠ Empty tweet skipped");
+//       return null;
+//     }
+
+//     // Reject tweets containing undefined or null placeholders
+//     if (/\b(undefined|null)\b/i.test(cleanText)) {
+//       log("❌ Invalid tweet (contains undefined/null)");
+//       console.log("INVALID TWEET:", cleanText);
+//       return null;
+//     }
+
+//     const payload = {
+//       text: cleanText,
+//     };
+
+//     if (replyToId) {
+//       payload.reply = {
+//         in_reply_to_tweet_id: replyToId,
+//       };
+//     }
+
+//     const res = await twitterClient.v2.tweet(payload);
+
+//     console.log("📤 Tweet POSTED via API:");
+//     console.log(JSON.stringify(res.data, null, 2));
+
+//     return res.data;
+//   } catch (err) {
+//     console.error("❌ Error posting tweet (API):");
+//     console.error("❌ Twitter API Error:");
+//     console.error("Message:", err?.message);
+//     console.error("Code:", err?.code);
+//     console.error("Data:", err?.data);
+//     console.error("Response:", err?.response?.data);
+//     console.error(err);
+//     return null;
+//   }
+// }

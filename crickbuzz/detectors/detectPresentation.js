@@ -65,29 +65,86 @@ export function detectPresentation(response) {
   return events;
 }
 
+// export async function processPreMatchEvents(matchId) {
+//   console.log("Pre-match check", {
+//     tossTweeted: globalThis.OFFLINE_TOSS_TWEETED,
+//     playingXiTweeted: globalThis.OFFLINE_PLAYING_XI_TWEETED,
+//   });
+//   if (!globalThis.OFFLINE_COMMENTARY_RESPONSE) {
+//     console.log("📥 Fetching commentary for pre-match metadata...");
+
+//     // globalThis.OFFLINE_COMMENTARY_RESPONSE = await getCommentary(matchId);
+//     globalThis.OFFLINE_COMMENTARY_RESPONSE = await getCommentaryAuto(matchId);
+//   }
+
+//   const tossEvent = detectToss(globalThis.OFFLINE_COMMENTARY_RESPONSE);
+
+//   if (tossEvent?.state !== "Toss") {
+//     return;
+//   }
+
+//   await handleToss({
+//     tossEvent,
+//     useWebTweet: USE_WEB_TWEET,
+//   });
+
+//   if (!globalThis.OFFLINE_PLAYING_XI_TWEETED) {
+//     await handlePlayingXI({
+//       matchId: matchId,
+//       useWebTweet: USE_WEB_TWEET,
+//     });
+//   }
+// }
+
 export async function processPreMatchEvents(matchId) {
-  if (!globalThis.OFFLINE_COMMENTARY_RESPONSE) {
-    console.log("📥 Fetching commentary for pre-match metadata...");
+  console.log("Pre-match check", {
+    tossTweeted: globalThis.OFFLINE_TOSS_TWEETED,
+    playingXiTweeted: globalThis.OFFLINE_PLAYING_XI_TWEETED,
+  });
 
-    // globalThis.OFFLINE_COMMENTARY_RESPONSE = await getCommentary(matchId);
-    globalThis.OFFLINE_COMMENTARY_RESPONSE = await getCommentaryAuto(matchId);
-  }
-
-  const tossEvent = detectToss(globalThis.OFFLINE_COMMENTARY_RESPONSE);
-
-  if (tossEvent?.state !== "Toss") {
+  if (
+    globalThis.OFFLINE_TOSS_TWEETED &&
+    globalThis.OFFLINE_PLAYING_XI_TWEETED
+  ) {
     return;
   }
 
-  await handleToss({
-    tossEvent,
-    useWebTweet: USE_WEB_TWEET,
-  });
+  console.log("📥 Fetching fresh commentary...");
+  const commentary = await getCommentaryAuto(matchId);
 
+  globalThis.OFFLINE_COMMENTARY_RESPONSE = commentary;
+
+  if (!globalThis.OFFLINE_TOSS_TWEETED) {
+    const tossEvent = detectToss(commentary);
+
+    console.log({
+      commentaryState: commentary.matchHeader.state,
+      tossWinner: commentary.matchHeader.tossResults.tossWinnerName,
+      detectTossState: tossEvent?.state ?? "NONE",
+    });
+
+    if (tossEvent?.state === "Toss") {
+      await handleToss({
+        tossEvent,
+        useWebTweet: USE_WEB_TWEET,
+      });
+    }
+  }
+
+  // Handle Playing XI
   if (!globalThis.OFFLINE_PLAYING_XI_TWEETED) {
     await handlePlayingXI({
-      matchId: matchId,
+      matchId,
       useWebTweet: USE_WEB_TWEET,
     });
+  }
+
+  // Pre-match work is finished
+  if (
+    globalThis.OFFLINE_TOSS_TWEETED &&
+    globalThis.OFFLINE_PLAYING_XI_TWEETED
+  ) {
+    globalThis.OFFLINE_COMMENTARY_RESPONSE = null;
+    console.log("✅ Pre-match events completed.");
   }
 }

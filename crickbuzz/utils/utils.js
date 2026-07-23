@@ -16,7 +16,6 @@ export function getCurrentInningsScore(mini) {
 
 export function buildSnapshot(response) {
   const mini = response?.miniscore;
-  
 
   if (!mini?.batTeam) return null;
 
@@ -72,7 +71,7 @@ export function buildSnapshot(response) {
     responseLastUpdated: mini?.responseLastUpdated ?? null,
 
     commentary: commentary?.commText ?? "",
- 
+
     raw: response,
   };
 }
@@ -88,6 +87,9 @@ export function resetState(matchId) {
   globalThis.OFFLINE_LAST_PRESENTATION_TS = 0;
   globalThis.OFFLINE_PRESENTATION_WINDOW_END = null;
   globalThis.OFFLINE_COMMENTARY_RESPONSE = null;
+
+  globalThis.OFFLINE_TOSS_TWEETED = false;
+  globalThis.OFFLINE_PLAYING_XI_TWEETED = false;
 }
 
 export function isSameSnapshot(previous, current) {

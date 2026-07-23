@@ -43,11 +43,18 @@ export function createTossTweet({
   const action = decision.toLowerCase() === "bowling" ? "bowl" : "bat";
 
   return [
-    `🚨 ${team1Short} vs ${team2Short}`,
+    `🚨 TOSS UPDATE`,
     "",
     `${tossWinner} win the toss and elect to ${action} first.`,
     "",
   ].join("\n");
+
+  // return [
+  //   `🚨 ${team1Short} vs ${team2Short}`,
+  //   "",
+  //   `${tossWinner} win the toss and elect to ${action} first.`,
+  //   "",
+  // ].join("\n");
 }
 
 export function formatMilestoneInfo({
