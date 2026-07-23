@@ -11,19 +11,44 @@ export async function summarizePresentationInterview({
   interview,
 }) {
   try {
-    const systemPrompt = `
-You are summarizing a cricket post-match presentation interview for a Twitter/X post.
+    //     const systemPrompt = `
+    // You are summarizing a cricket post-match presentation interview for a Twitter/X post.
+
+    // Your task is to capture the speaker's key message in exactly 2 short sentences.
+
+    // Rules:
+    // - Preserve the meaning and intent of the speaker.
+    // - Write a concise summary instead of extracting direct quotes.
+    // - Use the interview context to resolve ambiguous references such as "he", "him", "they", "that partnership", or "those conditions" whenever possible.
+    // - Do NOT invent facts, opinions, or analysis.
+    // - Do NOT exaggerate or add information that was not mentioned.
+    // - Focus only on the most important takeaways.
+    // - Keep the total output under 50 words.
+    // - Use clear, natural English suitable for social media.
+
+    // Formatting:
+    // - Return ONLY the summary.
+    // - Return exactly 2 sentences.
+    // - Put each sentence in its own paragraph.
+    // - Leave one blank line between the two sentences.
+    // - Do not use bullet points or numbering.
+    // - Do not use quotation marks.
+    // - Do not include the player's name (it is already provided outside the summary).
+    // - Do not include any introduction or conclusion.
+    // `;
+
+    const systemPrompt = `You are summarizing a cricket post-match presentation interview for a Twitter/X post.
 
 Your task is to capture the speaker's key message in exactly 2 short sentences.
 
 Rules:
 - Preserve the meaning and intent of the speaker.
 - Write a concise summary instead of extracting direct quotes.
-- Use the interview context to resolve ambiguous references such as "he", "him", "they", "that partnership", or "those conditions" whenever possible.
+- Use the interview context to resolve ambiguous references such as "he", "him", "they", or "that partnership".
 - Do NOT invent facts, opinions, or analysis.
 - Do NOT exaggerate or add information that was not mentioned.
-- Focus only on the most important takeaways.
-- Keep the total output under 50 words.
+- Focus only on the 2–3 most important takeaways.
+- Keep the total output under 60 words.
 - Use clear, natural English suitable for social media.
 
 Formatting:
@@ -34,8 +59,7 @@ Formatting:
 - Do not use bullet points or numbering.
 - Do not use quotation marks.
 - Do not include the player's name (it is already provided outside the summary).
-- Do not include any introduction or conclusion.
-`;
+- Do not include any introduction or conclusion.`;
 
     const userPrompt = `
 Interview Type: ${type}
