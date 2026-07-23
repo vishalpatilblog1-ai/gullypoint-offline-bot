@@ -102,6 +102,7 @@ export async function processPreMatchEvents(matchId) {
     playingXiTweeted: globalThis.OFFLINE_PLAYING_XI_TWEETED,
   });
 
+  // Nothing left to do
   if (
     globalThis.OFFLINE_TOSS_TWEETED &&
     globalThis.OFFLINE_PLAYING_XI_TWEETED
@@ -112,14 +113,22 @@ export async function processPreMatchEvents(matchId) {
   console.log("📥 Fetching fresh commentary...");
   const commentary = await getCommentaryAuto(matchId);
 
+  if (!commentary) {
+    return;
+  }
+
+  // Keep latest commentary for debugging / reuse
   globalThis.OFFLINE_COMMENTARY_RESPONSE = commentary;
 
+  // -----------------------------
+  // Toss
+  // -----------------------------
   if (!globalThis.OFFLINE_TOSS_TWEETED) {
     const tossEvent = detectToss(commentary);
 
     console.log({
-      commentaryState: commentary.matchHeader.state,
-      tossWinner: commentary.matchHeader.tossResults.tossWinnerName,
+      commentaryState: commentary.matchHeader?.state,
+      tossWinner: commentary.matchHeader?.tossResults?.tossWinnerName,
       detectTossState: tossEvent?.state ?? "NONE",
     });
 
@@ -131,20 +140,23 @@ export async function processPreMatchEvents(matchId) {
     }
   }
 
-  // Handle Playing XI
+  // -----------------------------
+  // Playing XI
+  // -----------------------------
   if (!globalThis.OFFLINE_PLAYING_XI_TWEETED) {
     await handlePlayingXI({
-      matchId,
+      commentary, // <-- pass already fetched response
       useWebTweet: USE_WEB_TWEET,
     });
   }
 
-  // Pre-match work is finished
+  // -----------------------------
+  // Done
+  // -----------------------------
   if (
     globalThis.OFFLINE_TOSS_TWEETED &&
     globalThis.OFFLINE_PLAYING_XI_TWEETED
   ) {
-    globalThis.OFFLINE_COMMENTARY_RESPONSE = null;
     console.log("✅ Pre-match events completed.");
   }
 }

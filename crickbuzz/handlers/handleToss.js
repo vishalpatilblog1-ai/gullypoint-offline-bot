@@ -12,7 +12,7 @@ export async function handleToss({ tossEvent, useWebTweet }) {
 
   const tossTweet = createTossTweet(tossEvent);
 
-  console.log("tossTweet:", tossTweet);
+  // console.log("tossTweet:", tossTweet);
 
   try {
     if (useWebTweet) {

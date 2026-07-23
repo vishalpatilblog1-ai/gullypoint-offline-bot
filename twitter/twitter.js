@@ -34,37 +34,15 @@ console.log(
 console.log("isGP::", isGP);
 console.log("isCREX::", isCREX);
 
-// export async function postTweet_console_bbc(payload) {
-//   const text = typeof payload === "string" ? payload : payload?.text;
-
-//   if (typeof text !== "string") {
-//     console.log("❌ Invalid tweet (not a string)");
-//     console.log("INVALID TWEET:", payload);
-//     return null;
-//   }
-
-//   if (!text.trim()) {
-//     console.log("⚠ Empty tweet skipped (console mode)");
-//     return null;
-//   }
-
-//   console.log(`\n\n${text}\n\n`);
-
-//   // 👇 THIS IS THE IMPORTANT PART
-//   return {
-//     id: `console_${Date.now()}`,
-//   };
-// }
-
 export async function postTweet_console(text) {
   if (typeof text !== "string") {
-    log("❌ Invalid tweet (not a string)");
+    console.log("❌ Invalid tweet (not a string)");
     console.log("INVALID TWEET:", text);
     return;
   }
 
   if (!text.trim()) {
-    log("⚠ Empty tweet skipped (console mode)");
+    console.log("⚠ Empty tweet skipped (console mode)");
     return;
   }
 
@@ -147,54 +125,3 @@ export async function postTweet_web(text, replyToId = null) {
     return null;
   }
 }
-
-// export async function postTweet_web(text, replyToId = null) {
-//   console.log("text>>>", text);
-//   try {
-//     if (typeof text !== "string") {
-//       log("❌ Invalid tweet (not a string)");
-//       console.log("INVALID TWEET:", text);
-//       return null;
-//     }
-
-//     const cleanText = text.trim();
-
-//     if (!cleanText) {
-//       log("⚠ Empty tweet skipped");
-//       return null;
-//     }
-
-//     // Reject tweets containing undefined or null placeholders
-//     if (/\b(undefined|null)\b/i.test(cleanText)) {
-//       log("❌ Invalid tweet (contains undefined/null)");
-//       console.log("INVALID TWEET:", cleanText);
-//       return null;
-//     }
-
-//     const payload = {
-//       text: cleanText,
-//     };
-
-//     if (replyToId) {
-//       payload.reply = {
-//         in_reply_to_tweet_id: replyToId,
-//       };
-//     }
-
-//     const res = await twitterClient.v2.tweet(payload);
-
-//     console.log("📤 Tweet POSTED via API:");
-//     console.log(JSON.stringify(res.data, null, 2));
-
-//     return res.data;
-//   } catch (err) {
-//     console.error("❌ Error posting tweet (API):");
-//     console.error("❌ Twitter API Error:");
-//     console.error("Message:", err?.message);
-//     console.error("Code:", err?.code);
-//     console.error("Data:", err?.data);
-//     console.error("Response:", err?.response?.data);
-//     console.error(err);
-//     return null;
-//   }
-// }
