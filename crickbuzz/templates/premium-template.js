@@ -17,15 +17,24 @@ export function formatWicketInfo({
 
   const wicketLine = getWicketLine(batterName, batterRuns, batterBalls);
 
-  return `${header}
-
-${wicketLine}
+  return `${wicketLine}
 
 ${
   isSecondInnings && status
     ? status
     : `${battingTeam} - ${score}/${wickets} (${overs})`
 }`;
+
+  //   return `${header}
+
+  // ${wicketLine}
+
+  // ${
+  //   isSecondInnings && status
+  //     ? status
+  //     : `${battingTeam} - ${score}/${wickets} (${overs})`
+  // }`;
+
   //   return `${header}
 
   // ${wicketLine}
@@ -80,14 +89,10 @@ export function formatMilestoneInfo({
 
   // ${batterName} brings up ${batterRuns} from ${batterBalls} balls.
 
-  // ${battingTeam} ${score}/${wickets} (${overs} ov)`;
+  // ${battingTeam} ${score}/${wickets}`;
   // }
 
-  return `${header}
-
-${batterName} brings up ${batterRuns} from ${batterBalls} balls.
-
-${battingTeam} ${score}/${wickets}`;
+  return `${batterName} brings up ${batterRuns} from ${batterBalls} balls.`;
 }
 
 export function formatMatchResultInfo({ status, innings1, innings2 }) {

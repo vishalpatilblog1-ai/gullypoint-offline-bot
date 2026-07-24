@@ -47,11 +47,7 @@ export async function handleMilestone({
     overs: milestoneEvent.overs,
   });
 
-  console.log("milestoneText:", milestoneText);
-
   const card = buildOfflineMilestoneCard(milestoneEvent);
-
-  console.log("card::", card);
 
   let generatedPath;
 
