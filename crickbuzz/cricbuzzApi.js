@@ -122,28 +122,6 @@ export async function getCommentaryAuto(matchId) {
     `Unable to fetch valid commentary for match ${matchId} from any endpoint.`,
   );
 }
-// export async function getCommentaryAuto(matchId) {
-//   const endpoints = ["comm", "hcomm"];
-
-//   for (const endpoint of endpoints) {
-//     try {
-//       const data = await getCommentary(matchId, endpoint);
-
-//       // Valid response?
-//       if (
-//         data?.matchHeader ||
-//         data?.miniscore ||
-//         Object.keys(data?.matchCommentary || {}).length > 0
-//       ) {
-//         return data;
-//       }
-//     } catch (err) {
-//       console.log(`${endpoint} failed: ${err.message}`);
-//     }
-//   }
-
-//   return null;
-// }
 
 export async function getLiveScore(matchId) {
   return getLiveMiniScore(matchId);

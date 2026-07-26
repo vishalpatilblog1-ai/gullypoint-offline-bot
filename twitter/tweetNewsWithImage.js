@@ -46,7 +46,7 @@ export async function downloadImage(urlOrPath) {
     return urlOrPath;
   }
 
-  const filePath = "./tmp/news.png"; // 🔥 single file
+  const filePath = "./tmp/news.png";
 
   const res = await axios.get(urlOrPath, {
     responseType: "arraybuffer",
@@ -126,41 +126,3 @@ export async function tweetNewsWithImage(text, imageUrl) {
     }
   }
 }
-
-// export async function tweetNewsWithImage(text, imageUrl) {
-//   let downloadedPath = null;
-
-//   try {
-//     console.log("⬇ Downloading image...");
-//     downloadedPath = await downloadImage(imageUrl);
-
-//     console.log("📤 Uploading image to Twitter...");
-//     const data = fs.readFileSync(downloadedPath);
-
-//     // await new Promise((r) => setTimeout(r, 1000));
-
-//     const mediaId = await rwClient.v1.uploadMedia(data, {
-//       mimeType: "image/jpeg",
-//     });
-
-//     console.log("📝 Tweeting...");
-//     const tweet = await rwClient.v2.tweet({
-//       text,
-//       media: { media_ids: [mediaId] },
-//     });
-
-//     console.log("🚀 Tweet Posted:", tweet.data.id);
-
-//     return tweet;
-//   } catch (err) {
-//     console.error(
-//       "❌ Error tweeting news image:",
-//       err.response?.status || err?.code || err?.message
-//     );
-//     throw err;
-//   } finally {
-//     if (downloadedPath && fs.existsSync(downloadedPath)) {
-//       fs.unlinkSync(downloadedPath);
-//     }
-//   }
-// }

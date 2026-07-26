@@ -37,12 +37,6 @@ export function detectPresentation(response) {
 
     let type = "PRESENTATION";
 
-    // if (/player of the match/i.test(role)) {
-    //   type = "PLAYER_OF_MATCH";
-    // } else if (/capt/i.test(role)) {
-    //   type = "CAPTAIN";
-    // }
-
     if (/player of the match/i.test(role)) {
       type = "PLAYER_OF_MATCH";
     } else if (/player of the series/i.test(role)) {
@@ -65,44 +59,12 @@ export function detectPresentation(response) {
   return events;
 }
 
-// export async function processPreMatchEvents(matchId) {
-//   console.log("Pre-match check", {
-//     tossTweeted: globalThis.OFFLINE_TOSS_TWEETED,
-//     playingXiTweeted: globalThis.OFFLINE_PLAYING_XI_TWEETED,
-//   });
-//   if (!globalThis.OFFLINE_COMMENTARY_RESPONSE) {
-//     console.log("📥 Fetching commentary for pre-match metadata...");
-
-//     // globalThis.OFFLINE_COMMENTARY_RESPONSE = await getCommentary(matchId);
-//     globalThis.OFFLINE_COMMENTARY_RESPONSE = await getCommentaryAuto(matchId);
-//   }
-
-//   const tossEvent = detectToss(globalThis.OFFLINE_COMMENTARY_RESPONSE);
-
-//   if (tossEvent?.state !== "Toss") {
-//     return;
-//   }
-
-//   await handleToss({
-//     tossEvent,
-//     useWebTweet: USE_WEB_TWEET,
-//   });
-
-//   if (!globalThis.OFFLINE_PLAYING_XI_TWEETED) {
-//     await handlePlayingXI({
-//       matchId: matchId,
-//       useWebTweet: USE_WEB_TWEET,
-//     });
-//   }
-// }
-
 export async function processPreMatchEvents(matchId) {
   console.log("Pre-match check", {
     tossTweeted: globalThis.OFFLINE_TOSS_TWEETED,
     playingXiTweeted: globalThis.OFFLINE_PLAYING_XI_TWEETED,
   });
 
-  // Nothing left to do
   if (
     globalThis.OFFLINE_TOSS_TWEETED &&
     globalThis.OFFLINE_PLAYING_XI_TWEETED
@@ -117,12 +79,8 @@ export async function processPreMatchEvents(matchId) {
     return;
   }
 
-  // Keep latest commentary for debugging / reuse
   globalThis.OFFLINE_COMMENTARY_RESPONSE = commentary;
 
-  // -----------------------------
-  // Toss
-  // -----------------------------
   if (!globalThis.OFFLINE_TOSS_TWEETED) {
     const tossEvent = detectToss(commentary);
 
@@ -140,19 +98,13 @@ export async function processPreMatchEvents(matchId) {
     }
   }
 
-  // -----------------------------
-  // Playing XI
-  // -----------------------------
   if (!globalThis.OFFLINE_PLAYING_XI_TWEETED) {
     await handlePlayingXI({
-      commentary, // <-- pass already fetched response
+      commentary,
       useWebTweet: USE_WEB_TWEET,
     });
   }
 
-  // -----------------------------
-  // Done
-  // -----------------------------
   if (
     globalThis.OFFLINE_TOSS_TWEETED &&
     globalThis.OFFLINE_PLAYING_XI_TWEETED

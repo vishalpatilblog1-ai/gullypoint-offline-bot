@@ -20,27 +20,20 @@ export function formatWicketInfo({
   return `${wicketLine}
 
 ${
-  isSecondInnings && status
-    ? status
-    : `${battingTeam} - ${score}/${wickets} (${overs})`
+  isSecondInnings
+    ? `${score}/${wickets}
+
+${status || ""}`
+    : `${score}/${wickets} (${overs})`
 }`;
 
-  //   return `${header}
-
-  // ${wicketLine}
+  //   return `${wicketLine}
 
   // ${
   //   isSecondInnings && status
   //     ? status
   //     : `${battingTeam} - ${score}/${wickets} (${overs})`
   // }`;
-
-  //   return `${header}
-
-  // ${wicketLine}
-
-  // ${battingTeam} - ${score}/${wickets}
-  // ${isSecondInnings && status ? `\n\n${status}` : ``}`;
 }
 
 export function createTossTweet({
