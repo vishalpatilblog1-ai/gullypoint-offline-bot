@@ -2,6 +2,18 @@
 import { longTeamName } from "../utils/formatter.js";
 import { getWicketHeader, getWicketLine } from "../utils/utils.js";
 
+function formatOvers(overs) {
+  if (!overs) return "";
+
+  const [completedOvers, balls] = String(overs).split(".").map(Number);
+
+  if (balls === 6) {
+    return String(completedOvers + 1);
+  }
+
+  return String(overs);
+}
+
 export function formatWicketInfo({
   batterName,
   batterRuns,
@@ -17,6 +29,8 @@ export function formatWicketInfo({
 
   const wicketLine = getWicketLine(batterName, batterRuns, batterBalls);
 
+  const formattedOvers = formatOvers(overs);
+
   return `${wicketLine}
 
 ${
@@ -24,8 +38,18 @@ ${
     ? `${score}/${wickets}
 
 ${status || ""}`
-    : `${score}/${wickets} (${overs})`
+    : `${score}/${wickets} (${formattedOvers})`
 }`;
+
+  //   return `${wicketLine}
+
+  // ${
+  //   isSecondInnings
+  //     ? `${score}/${wickets}
+
+  // ${status || ""}`
+  //     : `${score}/${wickets} (${overs})`
+  // }`;
 
   //   return `${wicketLine}
 
