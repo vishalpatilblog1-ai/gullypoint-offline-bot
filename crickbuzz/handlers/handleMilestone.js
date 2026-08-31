@@ -52,7 +52,8 @@ export async function handleMilestone({
   let generatedPath;
 
   try {
-    generatedPath = await generateCardImage(CREX_BASE_IMAGE_TEMPLATE, card);
+    // generatedPath = await generateCardImage(CREX_BASE_IMAGE_TEMPLATE, card);
+    generatedPath = null;
   } catch (err) {
     console.error("❌ Card generation failed:", err);
   }
