@@ -13,6 +13,7 @@ import {
   resetState,
 } from "../utils/utils.js";
 
+// import { getCommentary, getLiveScore } from "../cricbuzzApi.js";
 import { detectMilestone } from "../detectors/detectMilestone.js";
 import { detectMatchResult } from "../detectors/detectMatchResult.js";
 import {
@@ -38,9 +39,6 @@ const USE_WEB_TWEET = process.env.USE_WEB_TWEET === "true";
 const isGP = process.env.PUBLISH_SCORE_POLLING_ON_GP === "true";
 const isCREX = process.env.PUBLISH_SCORE_POLLING_ON_CREX === "true";
 
-const PUBLISH_LIVE_SCORE_EVENTS =
-  process.env.PUBLISH_LIVE_SCORE_EVENTS !== "false";
-
 if (isCREX) {
   console.log("======================================================");
   console.log("Tweets are going to publish in CREX");
@@ -54,7 +52,6 @@ if (isGP) {
 }
 
 console.log("USE_WEB_TWEET:::", USE_WEB_TWEET);
-console.log("PUBLISH_LIVE_SCORE_EVENTS:::", PUBLISH_LIVE_SCORE_EVENTS);
 
 const wait = (ms) =>
   new Promise((resolve) => {
@@ -93,6 +90,7 @@ function updatePreviousSnapshot(currentSnapshot) {
 }
 
 async function processPresentationEvents(matchId) {
+  // const commentaryResponse = await getCommentary(matchId);
   const commentaryResponse = await getCommentaryAuto(matchId);
 
   const presentationEvents = detectPresentation(commentaryResponse) ?? [];
@@ -133,30 +131,27 @@ async function processLiveMatchEvents({
   currentSnapshot,
   response,
 }) {
-  if (PUBLISH_LIVE_SCORE_EVENTS) {
-    const wicketEvent = detectWicket(previousSnapshot, currentSnapshot);
+  const wicketEvent = detectWicket(previousSnapshot, currentSnapshot);
+  console.log("wicketEvent::", wicketEvent);
 
-    console.log("wicketEvent::", wicketEvent);
+  if (wicketEvent) {
+    await handleWicket({
+      wicketEvent,
+      currentSnapshot,
+      response,
+      useWebTweet: USE_WEB_TWEET,
+    });
+  } else {
+    const milestoneEvent = detectMilestone(previousSnapshot, currentSnapshot);
 
-    if (wicketEvent) {
-      await handleWicket({
-        wicketEvent,
+    console.log("milestoneEvent:::", milestoneEvent);
+
+    if (milestoneEvent) {
+      await handleMilestone({
+        milestoneEvent,
         currentSnapshot,
-        response,
         useWebTweet: USE_WEB_TWEET,
       });
-    } else {
-      const milestoneEvent = detectMilestone(previousSnapshot, currentSnapshot);
-
-      console.log("milestoneEvent:::", milestoneEvent);
-
-      if (milestoneEvent) {
-        await handleMilestone({
-          milestoneEvent,
-          currentSnapshot,
-          useWebTweet: USE_WEB_TWEET,
-        });
-      }
     }
   }
 
@@ -202,6 +197,17 @@ export async function scorePollingLoop(MATCH_ID, MATCH_NAME = "") {
         await processPreMatchEvents(MATCH_ID);
       }
 
+      // if (!currentSnapshot) {
+      //   await processPreMatchEvents(MATCH_ID);
+
+      //   console.log("⏳ Waiting for innings data...");
+      //   await wait(POLL_INTERVAL);
+      //   continue;
+      // }
+
+      // Pre-match data is no longer needed once innings starts
+      // globalThis.OFFLINE_COMMENTARY_RESPONSE = null;
+
       if (
         globalThis.OFFLINE_TOSS_TWEETED &&
         globalThis.OFFLINE_PLAYING_XI_TWEETED
@@ -221,6 +227,14 @@ export async function scorePollingLoop(MATCH_ID, MATCH_NAME = "") {
         await wait(POLL_INTERVAL);
         continue;
       }
+
+      // if (!globalThis.OFFLINE_PREV_SNAPSHOT) {
+      //   displayMatchInfo(response);
+      //   updatePreviousSnapshot(currentSnapshot);
+
+      //   await wait(POLL_INTERVAL);
+      //   continue;
+      // }
 
       const previousSnapshot = globalThis.OFFLINE_PREV_SNAPSHOT;
 
